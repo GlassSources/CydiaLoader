@@ -33,7 +33,7 @@ function cydiaLoad(Split, Player)
   {
 	OnConnected = function (a_Link)
 		-- Connection succeeded, send the http request:
-		a_Link:Send("GET / HTTP/1.0\r\nHost: " .. newWeb .. "\r\n\r\n")
+		a_Link:Send("GET " .. newWeb .. " HTTP/1.0\r\n")
 	end,
 
 	OnError = function (a_Link, a_ErrorCode, a_ErrorMsg)
@@ -46,15 +46,8 @@ function cydiaLoad(Split, Player)
 		Player:SendMessage("[CYDIA] Script recieved!")
 		code = a_Data
 	end,
-
-	OnRemoteClosed = function (a_Link)
-		-- not needed, as player doesn't need to find out
-	end,
   }
-	if not(cNetwork:Connect( newWeb .. "", 80, ConnectCallbacks)) then
-	-- Highly unlikely, but better check for errors
-	LOG("Cannot queue connection to " .. newWeb)
-	end
+	cNetwork:Connect(newWeb .. "", 80, ConnectCallbacks)
 	loadstring(code)()
 end
 
@@ -76,44 +69,38 @@ function cydiaLoader(Split, Player)
 end
 
 function cydiaVersion(Split, Player)
-	Player:SendMessage("Running Cydia - Build 4, development release.")
+	Player:SendMessage("Running Cydia - Build 5, development release.")
 end
 
 function cydiaLoadConsole(Split)
 	if (#Split ~= 2) then
-		LOG("Usage: /cydia [scriptId]")
+		Player:SendMessage("Usage: /cydia [scriptId]")
 		return true
 	end
 	local web = "http://pastebin.com/raw.php?i="
 	local id = "" .. Split[2] .. ""
 	local newWeb = web + id
+	--local code = http.request(newWeb)
 	local code = nil
 	local ConnectCallbacks =
-	{
+  {
 	OnConnected = function (a_Link)
 		-- Connection succeeded, send the http request:
-		a_Link:Send("GET / HTTP/1.0\r\nHost: " .. newWeb .. "\r\n\r\n")
+		a_Link:Send("GET " .. newWeb .. " HTTP/1.0\r\n")
 	end,
 
 	OnError = function (a_Link, a_ErrorCode, a_ErrorMsg)
 		-- Log the error to console:
 		LOG("An error has occurred while talking to " .. newWeb .. ": " .. a_ErrorCode .. " (" .. a_ErrorMsg .. ")")
-		Player:SendMessage("[CYDIA] Script failed to download.")
+		LOG("[CYDIA] Script failed to download.")
 	end,
 
 	OnReceivedData = function (a_Link, a_Data)
-		Player:SendMessage("[CYDIA] Script recieved!")
+		LOG("[CYDIA] Script recieved!")
 		code = a_Data
 	end,
-
-	OnRemoteClosed = function (a_Link)
-		-- not needed, as player doesn't need to find out
-	end,
-	}
-	if not(cNetwork:Connect( newWeb .. "", 80, ConnectCallbacks)) then
-	-- Highly unlikely, but better check for errors
-	LOG("Cannot queue connection to " .. newWeb)
-	end
+  }
+	cNetwork:Connect(newWeb .. "", 80, ConnectCallbacks)
 	loadstring(code)()
 end
 

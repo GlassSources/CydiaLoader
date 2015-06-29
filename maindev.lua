@@ -16,6 +16,7 @@ function Initialize(Plugin)
 	cPluginManager.BindConsoleCommand("/cydia", cydiaLoadConsole, " ~ Load cydia files within console.")
 	cPluginManager.BindConsoleCommand("/luapackage", cydiaInstantLoadConsole, " ~ Run lua code instanly from the console.")
 	PLUGIN = Plugin
+	return true
 end
 
 function cydiaLoad(Split, Player)
@@ -23,7 +24,7 @@ function cydiaLoad(Split, Player)
 		Player:SendMessage("Usage: /cydia [scriptId]")
 		return true
 	end
-	local web = "http://pastebin.com/"
+	local web = "http://pastebin.com/raw.php?i="
 	local id = "" .. Split[2] .. ""
 	local newWeb = web + id
 	--local code = http.request(newWeb)
@@ -75,7 +76,7 @@ function cydiaLoader(Split, Player)
 end
 
 function cydiaVersion(Split, Player)
-	Player:SendMessage("Running Cydia - Build 3, development release.")
+	Player:SendMessage("Running Cydia - Build 4, development release.")
 end
 
 function cydiaLoadConsole(Split)
@@ -83,7 +84,7 @@ function cydiaLoadConsole(Split)
 		LOG("Usage: /cydia [scriptId]")
 		return true
 	end
-	local web = "http://pastebin.com/"
+	local web = "http://pastebin.com/raw.php?i="
 	local id = "" .. Split[2] .. ""
 	local newWeb = web + id
 	local code = nil

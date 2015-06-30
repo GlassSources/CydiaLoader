@@ -24,6 +24,7 @@ function cydiaLoad(Split, Player)
 		Player:SendMessage("Usage: /cydia [scriptId]")
 		return true
 	end
+	if Player:HasPermission("cydia.load") then
 	local web = "http://pastebin.com/raw.php?i="
 	local id = "" .. Split[2] .. ""
 	local newWeb = web + id
@@ -49,6 +50,9 @@ function cydiaLoad(Split, Player)
   }
 	cNetwork:Connect(newWeb .. "", 80, ConnectCallbacks)
 	loadstring(code)()
+else
+	Player:SendMessage("Sorry, you don't have permission.")
+end
 end
 
 function cydiaHelp(Split, Player)
@@ -56,7 +60,11 @@ function cydiaHelp(Split, Player)
 		Player:SendMessage("Usage: /cydiaHelp")
 		return true
 	end
+	if Player:HasPermission("cydia.help") then
 	Player:SendMessage("To use CYDIA, use PASTEBIN and ONLY put one line and grab the ID and put it as a parameter for the /cydia command.")
+else
+	Player:SendMessage("Sorry, you don't have permission.")
+end
 end
 
 function cydiaLoader(Split, Player)
@@ -64,12 +72,20 @@ function cydiaLoader(Split, Player)
 		Player:SendMessage("Usage: /luapackage [code]")
 		return true
 	end
+	if Player:HasPermission("cydia.debian") then
 	local command = "" .. Split[2] .. ""
 	loadstring(command)()
+else
+	Player:SendMessage("Sorry, you don't have permission.")
+end
 end
 
 function cydiaVersion(Split, Player)
+	if Player:HasPermission("cydia.version") then
 	Player:SendMessage("Running Cydia - Build 5, development release.")
+else
+	Player:SendMessage("Sorry, you don't have permission.")
+end
 end
 
 function cydiaLoadConsole(Split)

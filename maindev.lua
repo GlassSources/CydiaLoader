@@ -8,7 +8,7 @@ function Initialize(Plugin)
 		return false
 	end--]]
 	Plugin:SetName("CydiaScriptLoader")
-	Plugin:SetVersion(4)
+	Plugin:SetVersion(6)
 	cPluginManager.BindCommand("/cydia", "cydia.load", cydiaLoad, " ~ The main Cydia loader command to load cydia files.")
 	cPluginManager.BindCommand("/cydiaHelp", "cydia.help", cydiaHelp, " - Cydia information and how to use.")
 	cPluginManager.BindCommand("/luapackage", "cydia.debian", cydiaLoader, " ~ Run code instanly instead from pastebin.")
@@ -82,7 +82,7 @@ end
 
 function cydiaVersion(Split, Player)
 	if Player:HasPermission("cydia.version") then
-	Player:SendMessage("Running Cydia - Build 5, development release.")
+	Player:SendMessage("Running Cydia - Build 6, development release.")
 else
 	Player:SendMessage("Sorry, you don't have permission.")
 end

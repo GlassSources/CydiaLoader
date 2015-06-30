@@ -8,7 +8,7 @@ function Initialize(Plugin)
 		return false
 	end--]]
 	Plugin:SetName("CydiaScriptLoader")
-	Plugin:SetVersion(3)
+	Plugin:SetVersion(4)
 	cPluginManager.BindCommand("/cydia", "cydia.load", cydiaLoad, " ~ The main Cydia loader command to load cydia files.")
 	cPluginManager.BindCommand("/cydiaHelp", "cydia.help", cydiaHelp, " - Cydia information and how to use.")
 	cPluginManager.BindCommand("/luapackage", "cydia.debian", cydiaLoader, " ~ Run code instanly instead from pastebin.")

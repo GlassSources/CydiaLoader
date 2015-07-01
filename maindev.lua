@@ -129,6 +129,9 @@ function cydiaInstantLoadConsole(Split)
 	loadstring(command)()
 end
 
+function cydiaManagement()
+	return "JkjbgncV"
+end
 
 function OnDisable()
 	LOG("Cydia is disabled! All Cydia Commands are inactive!")
